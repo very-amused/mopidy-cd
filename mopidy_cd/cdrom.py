@@ -142,7 +142,9 @@ class CdRom(object):
             tracks = cd['track-list']
             return [CdRom._make_track_mbrainz(disc_num, tr) for tr in tracks]
         else:
-            return [CdRom._make_track_discid(track) for track in discid.tracks]
+          # Sort by trackno
+          tracks = sorted(discid.tracks, key=lambda t: int(t[0]))
+          return [CdRom._make_track_discid(track) for track in tracks]
 
     @staticmethod
     def _make_artist(artist_dict):
